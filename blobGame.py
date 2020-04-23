@@ -7,7 +7,7 @@ SIZE = 10
 ## Reward/Penalty
 MOVE_PENALTY = -1
 ENEMY_PENALTY = -300
-FOOD_REWARD = 25
+FOOD_REWARD = 50
 EXIT_REWARD = 300
 
 ## Info for assigning colors to the different objects
@@ -79,18 +79,6 @@ class blobGame():
 			return True
 		return False
 
-	def get_frame(self):
-		world = np.zeros((SIZE, SIZE))
-		world[self.player.y][self.player.x] = PLAYER_N
-		for food in self.foods:
-			world[food[1]][food[0]] = FOOD_N
-
-		for enemy in self.enemys:
-			world[enemy[1]][enemy[0]] = ENEMY_N
-
-		world[self.exit[1]][self.exit[0]] = EXIT_N
-		return world
-
 	def step(self, action):
 		state = self.state
 		self.player.action(action)
@@ -107,19 +95,3 @@ class blobGame():
 		else:
 			reward = MOVE_PENALTY
 		return state, reward, done
-
-if __name__ == "__main__":
-	env = blobGame()
-	print(env.get_frame())
-	states, actions, rewards = [], [], []
-	done = False
-	while not done:
-		state = env.state
-
-		states.append(state)
-		action = int(input("#: "))
-		state, reward, done = env.step(action)
-
-		actions.append(action)
-		rewards.append(reward)
-		print(env.get_frame())
