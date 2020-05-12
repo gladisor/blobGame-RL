@@ -17,11 +17,17 @@
 
 ``
 python3 -m venv RL
+
 cd RL
+
 git clone "LINK TO REPO"
+
 source bin/activate
+
 pip3 install requirements.txt
+
 python3 main.py
+
 ``
 
 ### Prerequisites
