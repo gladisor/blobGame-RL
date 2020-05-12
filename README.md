@@ -7,14 +7,6 @@
 
 1.) setup env
 
-2.) clone repo
-
-4.) activate env
-
-5.) install requirements
-
-6.) run
-
 ``
 python3 -m venv RL
 ``
@@ -23,17 +15,25 @@ python3 -m venv RL
 cd RL
 ``
 
+2.) clone repo
+
 ``
 git clone "LINK TO REPO"
 ``
+
+3.) activate env
 
 ``
 source bin/activate
 ``
 
+4.) install requirements
+
 ``
 pip3 install requirements.txt
 ``
+
+5.) run
 
 ``
 python3 main.py
@@ -41,9 +41,6 @@ python3 main.py
 
 ### Prerequisites
 numpy, matplotlib
-```
-pip3 install requirements.txt
-```
 
 ## Authors
 Tristan Shah
