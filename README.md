@@ -5,10 +5,18 @@
 
 ## Getting Started
 
-Simply run the script to train the agent and generate a graph of the results.
-
+1.) setup env
+2.) clone repo
+4.) activate env
+5.) install requirements
+6.) run
 ``
-python3 monteCarloAgent.py
+python3 -m venv RL
+cd RL
+git clone "LINK TO REPO"
+source bin/activate
+pip3 install requirements.txt
+python3 main.py
 ``
 
 ### Prerequisites
