@@ -6,10 +6,15 @@
 ## Getting Started
 
 1.) setup env
+
 2.) clone repo
+
 4.) activate env
+
 5.) install requirements
+
 6.) run
+
 ``
 python3 -m venv RL
 cd RL
