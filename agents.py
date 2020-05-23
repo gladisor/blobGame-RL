@@ -52,35 +52,75 @@ class Q_Agent():
 		## Terminal update differs from q_update
 		self.terminal_update(self.state, self.action, reward)
 
-class Dyna_Q(Q_Agent):
-	def __init__(self,
-		alpha, gamma, epsilon, eps_dec, n_planning):
-		Q_Agent.__init__(self,alpha, gamma, epsilon, eps_dec)
-		self.n_planning = n_planning
-		self.model = {}
+# ## Planning without search control only works in deterministic env
+# class Dyna_Q(Q_Agent):
+# 	def __init__(self,
+# 		alpha, gamma, epsilon, eps_dec, n_planning):
+# 		Q_Agent.__init__(self, alpha, gamma, epsilon, eps_dec)
+# 		self.n_planning = n_planning
+# 		self.model = {}
 
-	def update_model(self, state, action, reward, next_state, terminal):
-		try:
-			self.model[state][action] = (reward, next_state, terminal)
-		except:
-			self.model[state] = {}
-			self.model[state][action] = (reward, next_state, terminal)
+# 	def update_model(self, state, action, reward, next_state, terminal):
+# 		try:
+# 			self.model[state][action] = (reward, next_state, terminal)
+# 		except:
+# 			self.model[state] = {}
+# 			self.model[state][action] = (reward, next_state, terminal)
 
-	def plan(self):
-		for _ in range(self.n_planning):
-			states = list(self.model.keys())
-			idx = np.random.choice(len(states))
-			state = states[idx]
+# 	def plan(self):
+# 		for _ in range(self.n_planning):
+# 			states = list(self.model.keys())
+# 			idx = np.random.choice(len(states))
+# 			state = states[idx]
 
-			actions = list(self.model[state])
-			action = np.random.choice(actions)
+# 			actions = list(self.model[state])
+# 			action = np.random.choice(actions)
 
-			reward, next_state, terminal= self.model[state][action]
+# 			reward, next_state, terminal= self.model[state][action]
 
-			if not terminal:
-				self.q_update(state, action, reward, next_state)
-			else:
-				self.terminal_update(state, action, reward)
+# 			if not terminal:
+# 				self.q_update(state, action, reward, next_state)
+# 			else:
+# 				self.terminal_update(state, action, reward)
+
+# class Dyna_QPlus(Dyna_Q):
+# 	def __init__(self,
+# 		alpha, gamma, epsilon, kappa, eps_dec, n_planning):
+# 		Dyna_Q.__init__(self, alpha, gamma, epsilon, eps_dec, n_planning)
+# 		self.kappa = kappa
+# 		self.tau = np.zeros((10, 10, 4))
+
+# 	def update_tau(self, state, action):
+# 		self.tau += 1
+# 		self.tau[state][action] = 0
+
+# 	def plan(self):
+# 		for _ in range(self.n_planning):
+# 			states = list(self.model.keys())
+# 			idx = np.random.choice(len(states))
+# 			state = states[idx]
+
+# 			actions = list(self.model[state])
+# 			action = np.random.choice(actions)
+
+# 			reward, next_state, terminal= self.model[state][action]
+# 			reward += self.kappa*np.sqrt(self.tau[state][action])
+
+# 			if not terminal:
+# 				self.q_update(state, action, reward, next_state)
+# 			else:
+# 				self.terminal_update(state, action, reward)
+
+# 	def agent_step(self, reward, next_state, terminal):
+# 		self.update_tau(self.state, self.action)
+# 		self.update_model(self.state, self.action, reward, next_state, terminal)
+# 		self.q_update(self.state, self.action, reward, next_state)
+
+# 		self.action = self.choose_action_egreedy(next_state)
+# 		self.state = next_state
+
+# 		self.epsilon = self.epsilon*self.eps_dec
+# 		return self.action
 
 if __name__ == "__main__":
 	agent = Dyna_Q(

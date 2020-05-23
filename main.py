@@ -3,18 +3,17 @@ from blobGame import *
 from utils import *
 import matplotlib.pyplot as plt
 
-agent = Dyna_Q(
+agent = Q_Agent(
 	alpha=0.1,
 	gamma=0.95,
 	epsilon=1,
-	eps_dec=.9999,
-	n_planning=0)
+	eps_dec=.9999)
 
 history = {
 	'reward_sum':[],
 	'num_steps':[]}
 	
-for episode in range(500):
+for episode in range(800):
 	env = blobGame()
 
 	state = env.state
@@ -29,13 +28,12 @@ for episode in range(500):
 		reward_sum += reward
 		num_steps += 1
 
-		agent.update_model(state, action ,reward, next_state, terminal)
+		# agent.update_model(state, action ,reward, next_state, terminal)
 
 		if terminal:
 			break
 
 		next_action = agent.agent_step(reward, next_state)
-		agent.plan()
 
 		state = next_state
 		action = next_action
@@ -47,8 +45,6 @@ for episode in range(500):
 
 	## Terminal update
 	agent.agent_end(reward)
-	## Final planning step
-	agent.plan()
 
 plotPI(agent)
 
